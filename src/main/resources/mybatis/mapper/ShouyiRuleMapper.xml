@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dscy.pasture.mapper.ShouyiRuleMapper" >
+  <resultMap id="BaseResultMap" type="com.dscy.pasture.entity.ShouyiRule" >
+    <id column="sr_id" property="srId" jdbcType="INTEGER" />
+    <result column="show_id" property="showId" jdbcType="INTEGER" />
+    <result column="sz_id" property="szId" jdbcType="INTEGER" />
+    <result column="sz_name" property="szName" jdbcType="VARCHAR" />
+    <result column="sz_img" property="szImg" jdbcType="VARCHAR" />
+    <result column="pets_id" property="petsId" jdbcType="INTEGER" />
+    <result column="pets_name" property="petsName" jdbcType="VARCHAR" />
+    <result column="pets_img" property="petsImg" jdbcType="VARCHAR" />
+    <result column="pets_level" property="petsLevel" jdbcType="INTEGER" />
+    <result column="rule_type" property="ruleType" jdbcType="INTEGER" />
+    <result column="exp_val" property="expVal" jdbcType="VARCHAR" />
+    <result column="quantity" property="quantity" jdbcType="BIGINT" />
+    <result column="add_time" property="addTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    sr_id, show_id, sz_id, sz_name, sz_img, pets_id, pets_name, pets_img, pets_level, 
+    rule_type, exp_val, quantity, add_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.dscy.pasture.entity.ShouyiRuleExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from shouyi_rule
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from shouyi_rule
+    where sr_id = #{srId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from shouyi_rule
+    where sr_id = #{srId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.dscy.pasture.entity.ShouyiRuleExample" >
+    delete from shouyi_rule
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.dscy.pasture.entity.ShouyiRule" >
+    insert into shouyi_rule (sr_id, show_id, sz_id, 
+      sz_name, sz_img, pets_id, 
+      pets_name, pets_img, pets_level, 
+      rule_type, exp_val, quantity, 
+      add_time)
+    values (#{srId,jdbcType=INTEGER}, #{showId,jdbcType=INTEGER}, #{szId,jdbcType=INTEGER}, 
+      #{szName,jdbcType=VARCHAR}, #{szImg,jdbcType=VARCHAR}, #{petsId,jdbcType=INTEGER}, 
+      #{petsName,jdbcType=VARCHAR}, #{petsImg,jdbcType=VARCHAR}, #{petsLevel,jdbcType=INTEGER}, 
+      #{ruleType,jdbcType=INTEGER}, #{expVal,jdbcType=VARCHAR}, #{quantity,jdbcType=BIGINT}, 
+      #{addTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.dscy.pasture.entity.ShouyiRule" >
+    insert into shouyi_rule
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="srId != null" >
+        sr_id,
+      </if>
+      <if test="showId != null" >
+        show_id,
+      </if>
+      <if test="szId != null" >
+        sz_id,
+      </if>
+      <if test="szName != null" >
+        sz_name,
+      </if>
+      <if test="szImg != null" >
+        sz_img,
+      </if>
+      <if test="petsId != null" >
+        pets_id,
+      </if>
+      <if test="petsName != null" >
+        pets_name,
+      </if>
+      <if test="petsImg != null" >
+        pets_img,
+      </if>
+      <if test="petsLevel != null" >
+        pets_level,
+      </if>
+      <if test="ruleType != null" >
+        rule_type,
+      </if>
+      <if test="expVal != null" >
+        exp_val,
+      </if>
+      <if test="quantity != null" >
+        quantity,
+      </if>
+      <if test="addTime != null" >
+        add_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="srId != null" >
+        #{srId,jdbcType=INTEGER},
+      </if>
+      <if test="showId != null" >
+        #{showId,jdbcType=INTEGER},
+      </if>
+      <if test="szId != null" >
+        #{szId,jdbcType=INTEGER},
+      </if>
+      <if test="szName != null" >
+        #{szName,jdbcType=VARCHAR},
+      </if>
+      <if test="szImg != null" >
+        #{szImg,jdbcType=VARCHAR},
+      </if>
+      <if test="petsId != null" >
+        #{petsId,jdbcType=INTEGER},
+      </if>
+      <if test="petsName != null" >
+        #{petsName,jdbcType=VARCHAR},
+      </if>
+      <if test="petsImg != null" >
+        #{petsImg,jdbcType=VARCHAR},
+      </if>
+      <if test="petsLevel != null" >
+        #{petsLevel,jdbcType=INTEGER},
+      </if>
+      <if test="ruleType != null" >
+        #{ruleType,jdbcType=INTEGER},
+      </if>
+      <if test="expVal != null" >
+        #{expVal,jdbcType=VARCHAR},
+      </if>
+      <if test="quantity != null" >
+        #{quantity,jdbcType=BIGINT},
+      </if>
+      <if test="addTime != null" >
+        #{addTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.dscy.pasture.entity.ShouyiRuleExample" resultType="java.lang.Integer" >
+    select count(*) from shouyi_rule
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update shouyi_rule
+    <set >
+      <if test="record.srId != null" >
+        sr_id = #{record.srId,jdbcType=INTEGER},
+      </if>
+      <if test="record.showId != null" >
+        show_id = #{record.showId,jdbcType=INTEGER},
+      </if>
+      <if test="record.szId != null" >
+        sz_id = #{record.szId,jdbcType=INTEGER},
+      </if>
+      <if test="record.szName != null" >
+        sz_name = #{record.szName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.szImg != null" >
+        sz_img = #{record.szImg,jdbcType=VARCHAR},
+      </if>
+      <if test="record.petsId != null" >
+        pets_id = #{record.petsId,jdbcType=INTEGER},
+      </if>
+      <if test="record.petsName != null" >
+        pets_name = #{record.petsName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.petsImg != null" >
+        pets_img = #{record.petsImg,jdbcType=VARCHAR},
+      </if>
+      <if test="record.petsLevel != null" >
+        pets_level = #{record.petsLevel,jdbcType=INTEGER},
+      </if>
+      <if test="record.ruleType != null" >
+        rule_type = #{record.ruleType,jdbcType=INTEGER},
+      </if>
+      <if test="record.expVal != null" >
+        exp_val = #{record.expVal,jdbcType=VARCHAR},
+      </if>
+      <if test="record.quantity != null" >
+        quantity = #{record.quantity,jdbcType=BIGINT},
+      </if>
+      <if test="record.addTime != null" >
+        add_time = #{record.addTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update shouyi_rule
+    set sr_id = #{record.srId,jdbcType=INTEGER},
+      show_id = #{record.showId,jdbcType=INTEGER},
+      sz_id = #{record.szId,jdbcType=INTEGER},
+      sz_name = #{record.szName,jdbcType=VARCHAR},
+      sz_img = #{record.szImg,jdbcType=VARCHAR},
+      pets_id = #{record.petsId,jdbcType=INTEGER},
+      pets_name = #{record.petsName,jdbcType=VARCHAR},
+      pets_img = #{record.petsImg,jdbcType=VARCHAR},
+      pets_level = #{record.petsLevel,jdbcType=INTEGER},
+      rule_type = #{record.ruleType,jdbcType=INTEGER},
+      exp_val = #{record.expVal,jdbcType=VARCHAR},
+      quantity = #{record.quantity,jdbcType=BIGINT},
+      add_time = #{record.addTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dscy.pasture.entity.ShouyiRule" >
+    update shouyi_rule
+    <set >
+      <if test="showId != null" >
+        show_id = #{showId,jdbcType=INTEGER},
+      </if>
+      <if test="szId != null" >
+        sz_id = #{szId,jdbcType=INTEGER},
+      </if>
+      <if test="szName != null" >
+        sz_name = #{szName,jdbcType=VARCHAR},
+      </if>
+      <if test="szImg != null" >
+        sz_img = #{szImg,jdbcType=VARCHAR},
+      </if>
+      <if test="petsId != null" >
+        pets_id = #{petsId,jdbcType=INTEGER},
+      </if>
+      <if test="petsName != null" >
+        pets_name = #{petsName,jdbcType=VARCHAR},
+      </if>
+      <if test="petsImg != null" >
+        pets_img = #{petsImg,jdbcType=VARCHAR},
+      </if>
+      <if test="petsLevel != null" >
+        pets_level = #{petsLevel,jdbcType=INTEGER},
+      </if>
+      <if test="ruleType != null" >
+        rule_type = #{ruleType,jdbcType=INTEGER},
+      </if>
+      <if test="expVal != null" >
+        exp_val = #{expVal,jdbcType=VARCHAR},
+      </if>
+      <if test="quantity != null" >
+        quantity = #{quantity,jdbcType=BIGINT},
+      </if>
+      <if test="addTime != null" >
+        add_time = #{addTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where sr_id = #{srId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dscy.pasture.entity.ShouyiRule" >
+    update shouyi_rule
+    set show_id = #{showId,jdbcType=INTEGER},
+      sz_id = #{szId,jdbcType=INTEGER},
+      sz_name = #{szName,jdbcType=VARCHAR},
+      sz_img = #{szImg,jdbcType=VARCHAR},
+      pets_id = #{petsId,jdbcType=INTEGER},
+      pets_name = #{petsName,jdbcType=VARCHAR},
+      pets_img = #{petsImg,jdbcType=VARCHAR},
+      pets_level = #{petsLevel,jdbcType=INTEGER},
+      rule_type = #{ruleType,jdbcType=INTEGER},
+      exp_val = #{expVal,jdbcType=VARCHAR},
+      quantity = #{quantity,jdbcType=BIGINT},
+      add_time = #{addTime,jdbcType=TIMESTAMP}
+    where sr_id = #{srId,jdbcType=INTEGER}
+  </update>
+</mapper>

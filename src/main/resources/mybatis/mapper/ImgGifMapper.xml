@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dscy.pasture.mapper.ImgGifMapper" >
+  <resultMap id="BaseResultMap" type="com.dscy.pasture.entity.ImgGif" >
+    <id column="img_gif_id" property="imgGifId" jdbcType="INTEGER" />
+    <result column="show_id" property="showId" jdbcType="INTEGER" />
+    <result column="img_gif_img_cache_id" property="imgGifImgCacheId" jdbcType="INTEGER" />
+    <result column="img_gif_url" property="imgGifUrl" jdbcType="VARCHAR" />
+    <result column="sort" property="sort" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    img_gif_id, show_id, img_gif_img_cache_id, img_gif_url, sort
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.dscy.pasture.entity.ImgGifExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from img_gif
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from img_gif
+    where img_gif_id = #{imgGifId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from img_gif
+    where img_gif_id = #{imgGifId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.dscy.pasture.entity.ImgGifExample" >
+    delete from img_gif
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.dscy.pasture.entity.ImgGif" >
+    insert into img_gif (img_gif_id, show_id, img_gif_img_cache_id, 
+      img_gif_url, sort)
+    values (#{imgGifId,jdbcType=INTEGER}, #{showId,jdbcType=INTEGER}, #{imgGifImgCacheId,jdbcType=INTEGER}, 
+      #{imgGifUrl,jdbcType=VARCHAR}, #{sort,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.dscy.pasture.entity.ImgGif" >
+    insert into img_gif
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="imgGifId != null" >
+        img_gif_id,
+      </if>
+      <if test="showId != null" >
+        show_id,
+      </if>
+      <if test="imgGifImgCacheId != null" >
+        img_gif_img_cache_id,
+      </if>
+      <if test="imgGifUrl != null" >
+        img_gif_url,
+      </if>
+      <if test="sort != null" >
+        sort,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="imgGifId != null" >
+        #{imgGifId,jdbcType=INTEGER},
+      </if>
+      <if test="showId != null" >
+        #{showId,jdbcType=INTEGER},
+      </if>
+      <if test="imgGifImgCacheId != null" >
+        #{imgGifImgCacheId,jdbcType=INTEGER},
+      </if>
+      <if test="imgGifUrl != null" >
+        #{imgGifUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="sort != null" >
+        #{sort,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.dscy.pasture.entity.ImgGifExample" resultType="java.lang.Integer" >
+    select count(*) from img_gif
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update img_gif
+    <set >
+      <if test="record.imgGifId != null" >
+        img_gif_id = #{record.imgGifId,jdbcType=INTEGER},
+      </if>
+      <if test="record.showId != null" >
+        show_id = #{record.showId,jdbcType=INTEGER},
+      </if>
+      <if test="record.imgGifImgCacheId != null" >
+        img_gif_img_cache_id = #{record.imgGifImgCacheId,jdbcType=INTEGER},
+      </if>
+      <if test="record.imgGifUrl != null" >
+        img_gif_url = #{record.imgGifUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sort != null" >
+        sort = #{record.sort,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update img_gif
+    set img_gif_id = #{record.imgGifId,jdbcType=INTEGER},
+      show_id = #{record.showId,jdbcType=INTEGER},
+      img_gif_img_cache_id = #{record.imgGifImgCacheId,jdbcType=INTEGER},
+      img_gif_url = #{record.imgGifUrl,jdbcType=VARCHAR},
+      sort = #{record.sort,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dscy.pasture.entity.ImgGif" >
+    update img_gif
+    <set >
+      <if test="showId != null" >
+        show_id = #{showId,jdbcType=INTEGER},
+      </if>
+      <if test="imgGifImgCacheId != null" >
+        img_gif_img_cache_id = #{imgGifImgCacheId,jdbcType=INTEGER},
+      </if>
+      <if test="imgGifUrl != null" >
+        img_gif_url = #{imgGifUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="sort != null" >
+        sort = #{sort,jdbcType=INTEGER},
+      </if>
+    </set>
+    where img_gif_id = #{imgGifId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dscy.pasture.entity.ImgGif" >
+    update img_gif
+    set show_id = #{showId,jdbcType=INTEGER},
+      img_gif_img_cache_id = #{imgGifImgCacheId,jdbcType=INTEGER},
+      img_gif_url = #{imgGifUrl,jdbcType=VARCHAR},
+      sort = #{sort,jdbcType=INTEGER}
+    where img_gif_id = #{imgGifId,jdbcType=INTEGER}
+  </update>
+</mapper>

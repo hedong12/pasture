@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dscy.pasture.mapper.ExpPrizeMapper" >
+  <resultMap id="BaseResultMap" type="com.dscy.pasture.entity.ExpPrize" >
+    <id column="e_id" property="eId" jdbcType="INTEGER" />
+    <result column="show_id" property="showId" jdbcType="INTEGER" />
+    <result column="exp_prize_name" property="expPrizeName" jdbcType="VARCHAR" />
+    <result column="exp_id" property="expId" jdbcType="INTEGER" />
+    <result column="exp_name" property="expName" jdbcType="VARCHAR" />
+    <result column="exp_img" property="expImg" jdbcType="VARCHAR" />
+    <result column="num" property="num" jdbcType="INTEGER" />
+    <result column="add_time" property="addTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    e_id, show_id, exp_prize_name, exp_id, exp_name, exp_img, num, add_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.dscy.pasture.entity.ExpPrizeExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from exp_prize
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+
+
+
+
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from exp_prize
+    where e_id = #{eId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from exp_prize
+    where e_id = #{eId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.dscy.pasture.entity.ExpPrizeExample" >
+    delete from exp_prize
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.dscy.pasture.entity.ExpPrize" >
+    insert into exp_prize (e_id, show_id, exp_prize_name, 
+      exp_id, exp_name, exp_img, 
+      num, add_time)
+    values (#{eId,jdbcType=INTEGER}, #{showId,jdbcType=INTEGER}, #{expPrizeName,jdbcType=VARCHAR}, 
+      #{expId,jdbcType=INTEGER}, #{expName,jdbcType=VARCHAR}, #{expImg,jdbcType=VARCHAR}, 
+      #{num,jdbcType=INTEGER}, #{addTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.dscy.pasture.entity.ExpPrize" >
+    insert into exp_prize
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="eId != null" >
+        e_id,
+      </if>
+      <if test="showId != null" >
+        show_id,
+      </if>
+      <if test="expPrizeName != null" >
+        exp_prize_name,
+      </if>
+      <if test="expId != null" >
+        exp_id,
+      </if>
+      <if test="expName != null" >
+        exp_name,
+      </if>
+      <if test="expImg != null" >
+        exp_img,
+      </if>
+      <if test="num != null" >
+        num,
+      </if>
+      <if test="addTime != null" >
+        add_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="eId != null" >
+        #{eId,jdbcType=INTEGER},
+      </if>
+      <if test="showId != null" >
+        #{showId,jdbcType=INTEGER},
+      </if>
+      <if test="expPrizeName != null" >
+        #{expPrizeName,jdbcType=VARCHAR},
+      </if>
+      <if test="expId != null" >
+        #{expId,jdbcType=INTEGER},
+      </if>
+      <if test="expName != null" >
+        #{expName,jdbcType=VARCHAR},
+      </if>
+      <if test="expImg != null" >
+        #{expImg,jdbcType=VARCHAR},
+      </if>
+      <if test="num != null" >
+        #{num,jdbcType=INTEGER},
+      </if>
+      <if test="addTime != null" >
+        #{addTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.dscy.pasture.entity.ExpPrizeExample" resultType="java.lang.Integer" >
+    select count(*) from exp_prize
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update exp_prize
+    <set >
+      <if test="record.eId != null" >
+        e_id = #{record.eId,jdbcType=INTEGER},
+      </if>
+      <if test="record.showId != null" >
+        show_id = #{record.showId,jdbcType=INTEGER},
+      </if>
+      <if test="record.expPrizeName != null" >
+        exp_prize_name = #{record.expPrizeName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.expId != null" >
+        exp_id = #{record.expId,jdbcType=INTEGER},
+      </if>
+      <if test="record.expName != null" >
+        exp_name = #{record.expName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.expImg != null" >
+        exp_img = #{record.expImg,jdbcType=VARCHAR},
+      </if>
+      <if test="record.num != null" >
+        num = #{record.num,jdbcType=INTEGER},
+      </if>
+      <if test="record.addTime != null" >
+        add_time = #{record.addTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update exp_prize
+    set e_id = #{record.eId,jdbcType=INTEGER},
+      show_id = #{record.showId,jdbcType=INTEGER},
+      exp_prize_name = #{record.expPrizeName,jdbcType=VARCHAR},
+      exp_id = #{record.expId,jdbcType=INTEGER},
+      exp_name = #{record.expName,jdbcType=VARCHAR},
+      exp_img = #{record.expImg,jdbcType=VARCHAR},
+      num = #{record.num,jdbcType=INTEGER},
+      add_time = #{record.addTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dscy.pasture.entity.ExpPrize" >
+    update exp_prize
+    <set >
+      <if test="showId != null" >
+        show_id = #{showId,jdbcType=INTEGER},
+      </if>
+      <if test="expPrizeName != null" >
+        exp_prize_name = #{expPrizeName,jdbcType=VARCHAR},
+      </if>
+      <if test="expId != null" >
+        exp_id = #{expId,jdbcType=INTEGER},
+      </if>
+      <if test="expName != null" >
+        exp_name = #{expName,jdbcType=VARCHAR},
+      </if>
+      <if test="expImg != null" >
+        exp_img = #{expImg,jdbcType=VARCHAR},
+      </if>
+      <if test="num != null" >
+        num = #{num,jdbcType=INTEGER},
+      </if>
+      <if test="addTime != null" >
+        add_time = #{addTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where e_id = #{eId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dscy.pasture.entity.ExpPrize" >
+    update exp_prize
+    set show_id = #{showId,jdbcType=INTEGER},
+      exp_prize_name = #{expPrizeName,jdbcType=VARCHAR},
+      exp_id = #{expId,jdbcType=INTEGER},
+      exp_name = #{expName,jdbcType=VARCHAR},
+      exp_img = #{expImg,jdbcType=VARCHAR},
+      num = #{num,jdbcType=INTEGER},
+      add_time = #{addTime,jdbcType=TIMESTAMP}
+    where e_id = #{eId,jdbcType=INTEGER}
+  </update>
+
+  <update id="updateExpPrizeByExpId">
+    update exp_prize
+    set
+      exp_name = #{expName,jdbcType=VARCHAR},
+      exp_img = #{expImg,jdbcType=VARCHAR}
+    where  exp_id = #{expId,jdbcType=INTEGER}
+  </update>
+
+
+</mapper>

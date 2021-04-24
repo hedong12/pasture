@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dscy.pasture.mapper.ShouyiLedgerMapper" >
+  <resultMap id="BaseResultMap" type="com.dscy.pasture.entity.ShouyiLedger" >
+    <id column="sl_id" property="slId" jdbcType="INTEGER" />
+    <result column="show_id" property="showId" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="username" property="username" jdbcType="VARCHAR" />
+    <result column="sl_num" property="slNum" jdbcType="VARCHAR" />
+    <result column="sz_id" property="szId" jdbcType="INTEGER" />
+    <result column="sz_name" property="szName" jdbcType="VARCHAR" />
+    <result column="sz_img" property="szImg" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    sl_id, show_id, user_id, username, sl_num, sz_id, sz_name, sz_img
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.dscy.pasture.entity.ShouyiLedgerExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from shouyi_ledger
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from shouyi_ledger
+    where sl_id = #{slId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from shouyi_ledger
+    where sl_id = #{slId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.dscy.pasture.entity.ShouyiLedgerExample" >
+    delete from shouyi_ledger
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.dscy.pasture.entity.ShouyiLedger" >
+    insert into shouyi_ledger (sl_id, show_id, user_id, 
+      username, sl_num, sz_id, 
+      sz_name, sz_img)
+    values (#{slId,jdbcType=INTEGER}, #{showId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, 
+      #{username,jdbcType=VARCHAR}, #{slNum,jdbcType=VARCHAR}, #{szId,jdbcType=INTEGER}, 
+      #{szName,jdbcType=VARCHAR}, #{szImg,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.dscy.pasture.entity.ShouyiLedger" >
+    insert into shouyi_ledger
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="slId != null" >
+        sl_id,
+      </if>
+      <if test="showId != null" >
+        show_id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="username != null" >
+        username,
+      </if>
+      <if test="slNum != null" >
+        sl_num,
+      </if>
+      <if test="szId != null" >
+        sz_id,
+      </if>
+      <if test="szName != null" >
+        sz_name,
+      </if>
+      <if test="szImg != null" >
+        sz_img,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="slId != null" >
+        #{slId,jdbcType=INTEGER},
+      </if>
+      <if test="showId != null" >
+        #{showId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="username != null" >
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="slNum != null" >
+        #{slNum,jdbcType=VARCHAR},
+      </if>
+      <if test="szId != null" >
+        #{szId,jdbcType=INTEGER},
+      </if>
+      <if test="szName != null" >
+        #{szName,jdbcType=VARCHAR},
+      </if>
+      <if test="szImg != null" >
+        #{szImg,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.dscy.pasture.entity.ShouyiLedgerExample" resultType="java.lang.Integer" >
+    select count(*) from shouyi_ledger
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update shouyi_ledger
+    <set >
+      <if test="record.slId != null" >
+        sl_id = #{record.slId,jdbcType=INTEGER},
+      </if>
+      <if test="record.showId != null" >
+        show_id = #{record.showId,jdbcType=INTEGER},
+      </if>
+      <if test="record.userId != null" >
+        user_id = #{record.userId,jdbcType=INTEGER},
+      </if>
+      <if test="record.username != null" >
+        username = #{record.username,jdbcType=VARCHAR},
+      </if>
+      <if test="record.slNum != null" >
+        sl_num = #{record.slNum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.szId != null" >
+        sz_id = #{record.szId,jdbcType=INTEGER},
+      </if>
+      <if test="record.szName != null" >
+        sz_name = #{record.szName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.szImg != null" >
+        sz_img = #{record.szImg,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update shouyi_ledger
+    set sl_id = #{record.slId,jdbcType=INTEGER},
+      show_id = #{record.showId,jdbcType=INTEGER},
+      user_id = #{record.userId,jdbcType=INTEGER},
+      username = #{record.username,jdbcType=VARCHAR},
+      sl_num = #{record.slNum,jdbcType=VARCHAR},
+      sz_id = #{record.szId,jdbcType=INTEGER},
+      sz_name = #{record.szName,jdbcType=VARCHAR},
+      sz_img = #{record.szImg,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dscy.pasture.entity.ShouyiLedger" >
+    update shouyi_ledger
+    <set >
+      <if test="showId != null" >
+        show_id = #{showId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="username != null" >
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="slNum != null" >
+        sl_num = #{slNum,jdbcType=VARCHAR},
+      </if>
+      <if test="szId != null" >
+        sz_id = #{szId,jdbcType=INTEGER},
+      </if>
+      <if test="szName != null" >
+        sz_name = #{szName,jdbcType=VARCHAR},
+      </if>
+      <if test="szImg != null" >
+        sz_img = #{szImg,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where sl_id = #{slId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dscy.pasture.entity.ShouyiLedger" >
+    update shouyi_ledger
+    set show_id = #{showId,jdbcType=INTEGER},
+      user_id = #{userId,jdbcType=INTEGER},
+      username = #{username,jdbcType=VARCHAR},
+      sl_num = #{slNum,jdbcType=VARCHAR},
+      sz_id = #{szId,jdbcType=INTEGER},
+      sz_name = #{szName,jdbcType=VARCHAR},
+      sz_img = #{szImg,jdbcType=VARCHAR}
+    where sl_id = #{slId,jdbcType=INTEGER}
+  </update>
+</mapper>

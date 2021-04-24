@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dscy.pasture.mapper.PetsMapper" >
+  <resultMap id="BaseResultMap" type="com.dscy.pasture.entity.Pets" >
+    <id column="pets_id" property="petsId" jdbcType="INTEGER" />
+    <result column="show_id" property="showId" jdbcType="INTEGER" />
+    <result column="pets_name" property="petsName" jdbcType="VARCHAR" />
+    <result column="pets_img_id" property="petsImgId" jdbcType="INTEGER" />
+    <result column="pets_img_url" property="petsImgUrl" jdbcType="VARCHAR" />
+    <result column="pets_level" property="petsLevel" jdbcType="INTEGER" />
+    <result column="pets_exp" property="petsExp" jdbcType="VARCHAR" />
+    <result column="pets_status" property="petsStatus" jdbcType="INTEGER" />
+    <result column="pets_exp_prize_id" property="petsExpPrizeId" jdbcType="INTEGER" />
+    <result column="pets_exp_prize_name" property="petsExpPrizeName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    pets_id, show_id, pets_name, pets_img_id, pets_img_url, pets_level, pets_exp, pets_status, 
+    pets_exp_prize_id, pets_exp_prize_name
+  </sql>
+
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.dscy.pasture.entity.PetsExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from pets
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+
+  <select id="selectPetsList" resultType="Pets" parameterType="string">
+     SELECT
+     p.*,
+     a.`pasture_name` AS pastureName
+     FROM
+     pets p
+     INNER JOIN admin_user a
+     ON p.`show_id` = a.`admin_id`
+     WHERE 1=1
+     <if test="petsName != null and petsName != ''">
+       AND p.`pets_name` LIKE CONCAT('%',#{petsName},'%')
+     </if>
+  </select>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from pets
+    where pets_id = #{petsId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from pets
+    where pets_id = #{petsId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.dscy.pasture.entity.PetsExample" >
+    delete from pets
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.dscy.pasture.entity.Pets" >
+    insert into pets (pets_id, show_id, pets_name, 
+      pets_img_id, pets_img_url, pets_level, 
+      pets_exp, pets_status, pets_exp_prize_id, 
+      pets_exp_prize_name)
+    values (#{petsId,jdbcType=INTEGER}, #{showId,jdbcType=INTEGER}, #{petsName,jdbcType=VARCHAR}, 
+      #{petsImgId,jdbcType=INTEGER}, #{petsImgUrl,jdbcType=VARCHAR}, #{petsLevel,jdbcType=INTEGER}, 
+      #{petsExp,jdbcType=VARCHAR}, #{petsStatus,jdbcType=INTEGER}, #{petsExpPrizeId,jdbcType=INTEGER}, 
+      #{petsExpPrizeName,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.dscy.pasture.entity.Pets" >
+    insert into pets
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="petsId != null" >
+        pets_id,
+      </if>
+      <if test="showId != null" >
+        show_id,
+      </if>
+      <if test="petsName != null" >
+        pets_name,
+      </if>
+      <if test="petsImgId != null" >
+        pets_img_id,
+      </if>
+      <if test="petsImgUrl != null" >
+        pets_img_url,
+      </if>
+      <if test="petsLevel != null" >
+        pets_level,
+      </if>
+      <if test="petsExp != null" >
+        pets_exp,
+      </if>
+      <if test="petsStatus != null" >
+        pets_status,
+      </if>
+      <if test="petsExpPrizeId != null" >
+        pets_exp_prize_id,
+      </if>
+      <if test="petsExpPrizeName != null" >
+        pets_exp_prize_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="petsId != null" >
+        #{petsId,jdbcType=INTEGER},
+      </if>
+      <if test="showId != null" >
+        #{showId,jdbcType=INTEGER},
+      </if>
+      <if test="petsName != null" >
+        #{petsName,jdbcType=VARCHAR},
+      </if>
+      <if test="petsImgId != null" >
+        #{petsImgId,jdbcType=INTEGER},
+      </if>
+      <if test="petsImgUrl != null" >
+        #{petsImgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="petsLevel != null" >
+        #{petsLevel,jdbcType=INTEGER},
+      </if>
+      <if test="petsExp != null" >
+        #{petsExp,jdbcType=VARCHAR},
+      </if>
+      <if test="petsStatus != null" >
+        #{petsStatus,jdbcType=INTEGER},
+      </if>
+      <if test="petsExpPrizeId != null" >
+        #{petsExpPrizeId,jdbcType=INTEGER},
+      </if>
+      <if test="petsExpPrizeName != null" >
+        #{petsExpPrizeName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.dscy.pasture.entity.PetsExample" resultType="java.lang.Integer" >
+    select count(*) from pets
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update pets
+    <set >
+      <if test="record.petsId != null" >
+        pets_id = #{record.petsId,jdbcType=INTEGER},
+      </if>
+      <if test="record.showId != null" >
+        show_id = #{record.showId,jdbcType=INTEGER},
+      </if>
+      <if test="record.petsName != null" >
+        pets_name = #{record.petsName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.petsImgId != null" >
+        pets_img_id = #{record.petsImgId,jdbcType=INTEGER},
+      </if>
+      <if test="record.petsImgUrl != null" >
+        pets_img_url = #{record.petsImgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.petsLevel != null" >
+        pets_level = #{record.petsLevel,jdbcType=INTEGER},
+      </if>
+      <if test="record.petsExp != null" >
+        pets_exp = #{record.petsExp,jdbcType=VARCHAR},
+      </if>
+      <if test="record.petsStatus != null" >
+        pets_status = #{record.petsStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.petsExpPrizeId != null" >
+        pets_exp_prize_id = #{record.petsExpPrizeId,jdbcType=INTEGER},
+      </if>
+      <if test="record.petsExpPrizeName != null" >
+        pets_exp_prize_name = #{record.petsExpPrizeName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update pets
+    set pets_id = #{record.petsId,jdbcType=INTEGER},
+      show_id = #{record.showId,jdbcType=INTEGER},
+      pets_name = #{record.petsName,jdbcType=VARCHAR},
+      pets_img_id = #{record.petsImgId,jdbcType=INTEGER},
+      pets_img_url = #{record.petsImgUrl,jdbcType=VARCHAR},
+      pets_level = #{record.petsLevel,jdbcType=INTEGER},
+      pets_exp = #{record.petsExp,jdbcType=VARCHAR},
+      pets_status = #{record.petsStatus,jdbcType=INTEGER},
+      pets_exp_prize_id = #{record.petsExpPrizeId,jdbcType=INTEGER},
+      pets_exp_prize_name = #{record.petsExpPrizeName,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dscy.pasture.entity.Pets" >
+    update pets
+    <set >
+      <if test="showId != null" >
+        show_id = #{showId,jdbcType=INTEGER},
+      </if>
+      <if test="petsName != null" >
+        pets_name = #{petsName,jdbcType=VARCHAR},
+      </if>
+      <if test="petsImgId != null" >
+        pets_img_id = #{petsImgId,jdbcType=INTEGER},
+      </if>
+      <if test="petsImgUrl != null" >
+        pets_img_url = #{petsImgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="petsLevel != null" >
+        pets_level = #{petsLevel,jdbcType=INTEGER},
+      </if>
+      <if test="petsExp != null" >
+        pets_exp = #{petsExp,jdbcType=VARCHAR},
+      </if>
+      <if test="petsStatus != null" >
+        pets_status = #{petsStatus,jdbcType=INTEGER},
+      </if>
+      <if test="petsExpPrizeId != null" >
+        pets_exp_prize_id = #{petsExpPrizeId,jdbcType=INTEGER},
+      </if>
+      <if test="petsExpPrizeName != null" >
+        pets_exp_prize_name = #{petsExpPrizeName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where pets_id = #{petsId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dscy.pasture.entity.Pets" >
+    update pets
+    set show_id = #{showId,jdbcType=INTEGER},
+      pets_name = #{petsName,jdbcType=VARCHAR},
+      pets_img_id = #{petsImgId,jdbcType=INTEGER},
+      pets_img_url = #{petsImgUrl,jdbcType=VARCHAR},
+      pets_level = #{petsLevel,jdbcType=INTEGER},
+      pets_exp = #{petsExp,jdbcType=VARCHAR},
+      pets_status = #{petsStatus,jdbcType=INTEGER},
+      pets_exp_prize_id = #{petsExpPrizeId,jdbcType=INTEGER},
+      pets_exp_prize_name = #{petsExpPrizeName,jdbcType=VARCHAR}
+    where pets_id = #{petsId,jdbcType=INTEGER}
+  </update>
+</mapper>

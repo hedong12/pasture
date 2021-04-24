@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dscy.pasture.mapper.UserFodderRecordMapper" >
+  <resultMap id="BaseResultMap" type="com.dscy.pasture.entity.UserFodderRecord" >
+    <id column="ufr_id" property="ufrId" jdbcType="INTEGER" />
+    <result column="show_id" property="showId" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="username" property="username" jdbcType="VARCHAR" />
+    <result column="user_fodder_num" property="userFodderNum" jdbcType="BIGINT" />
+    <result column="fodder_id" property="fodderId" jdbcType="INTEGER" />
+    <result column="fodder_name" property="fodderName" jdbcType="VARCHAR" />
+    <result column="fodder_img" property="fodderImg" jdbcType="VARCHAR" />
+    <result column="add_time" property="addTime" jdbcType="TIMESTAMP" />
+    <result column="source" property="source" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ufr_id, show_id, user_id, username, user_fodder_num, fodder_id, fodder_name, fodder_img, 
+    add_time, source
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.dscy.pasture.entity.UserFodderRecordExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from user_fodder_record
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from user_fodder_record
+    where ufr_id = #{ufrId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from user_fodder_record
+    where ufr_id = #{ufrId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.dscy.pasture.entity.UserFodderRecordExample" >
+    delete from user_fodder_record
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.dscy.pasture.entity.UserFodderRecord" >
+    insert into user_fodder_record (ufr_id, show_id, user_id, 
+      username, user_fodder_num, fodder_id, 
+      fodder_name, fodder_img, add_time, 
+      source)
+    values (#{ufrId,jdbcType=INTEGER}, #{showId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, 
+      #{username,jdbcType=VARCHAR}, #{userFodderNum,jdbcType=BIGINT}, #{fodderId,jdbcType=INTEGER}, 
+      #{fodderName,jdbcType=VARCHAR}, #{fodderImg,jdbcType=VARCHAR}, #{addTime,jdbcType=TIMESTAMP}, 
+      #{source,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.dscy.pasture.entity.UserFodderRecord" >
+    insert into user_fodder_record
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="ufrId != null" >
+        ufr_id,
+      </if>
+      <if test="showId != null" >
+        show_id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="username != null" >
+        username,
+      </if>
+      <if test="userFodderNum != null" >
+        user_fodder_num,
+      </if>
+      <if test="fodderId != null" >
+        fodder_id,
+      </if>
+      <if test="fodderName != null" >
+        fodder_name,
+      </if>
+      <if test="fodderImg != null" >
+        fodder_img,
+      </if>
+      <if test="addTime != null" >
+        add_time,
+      </if>
+      <if test="source != null" >
+        source,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="ufrId != null" >
+        #{ufrId,jdbcType=INTEGER},
+      </if>
+      <if test="showId != null" >
+        #{showId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="username != null" >
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="userFodderNum != null" >
+        #{userFodderNum,jdbcType=BIGINT},
+      </if>
+      <if test="fodderId != null" >
+        #{fodderId,jdbcType=INTEGER},
+      </if>
+      <if test="fodderName != null" >
+        #{fodderName,jdbcType=VARCHAR},
+      </if>
+      <if test="fodderImg != null" >
+        #{fodderImg,jdbcType=VARCHAR},
+      </if>
+      <if test="addTime != null" >
+        #{addTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="source != null" >
+        #{source,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.dscy.pasture.entity.UserFodderRecordExample" resultType="java.lang.Integer" >
+    select count(*) from user_fodder_record
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update user_fodder_record
+    <set >
+      <if test="record.ufrId != null" >
+        ufr_id = #{record.ufrId,jdbcType=INTEGER},
+      </if>
+      <if test="record.showId != null" >
+        show_id = #{record.showId,jdbcType=INTEGER},
+      </if>
+      <if test="record.userId != null" >
+        user_id = #{record.userId,jdbcType=INTEGER},
+      </if>
+      <if test="record.username != null" >
+        username = #{record.username,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userFodderNum != null" >
+        user_fodder_num = #{record.userFodderNum,jdbcType=BIGINT},
+      </if>
+      <if test="record.fodderId != null" >
+        fodder_id = #{record.fodderId,jdbcType=INTEGER},
+      </if>
+      <if test="record.fodderName != null" >
+        fodder_name = #{record.fodderName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fodderImg != null" >
+        fodder_img = #{record.fodderImg,jdbcType=VARCHAR},
+      </if>
+      <if test="record.addTime != null" >
+        add_time = #{record.addTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.source != null" >
+        source = #{record.source,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update user_fodder_record
+    set ufr_id = #{record.ufrId,jdbcType=INTEGER},
+      show_id = #{record.showId,jdbcType=INTEGER},
+      user_id = #{record.userId,jdbcType=INTEGER},
+      username = #{record.username,jdbcType=VARCHAR},
+      user_fodder_num = #{record.userFodderNum,jdbcType=BIGINT},
+      fodder_id = #{record.fodderId,jdbcType=INTEGER},
+      fodder_name = #{record.fodderName,jdbcType=VARCHAR},
+      fodder_img = #{record.fodderImg,jdbcType=VARCHAR},
+      add_time = #{record.addTime,jdbcType=TIMESTAMP},
+      source = #{record.source,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dscy.pasture.entity.UserFodderRecord" >
+    update user_fodder_record
+    <set >
+      <if test="showId != null" >
+        show_id = #{showId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="username != null" >
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="userFodderNum != null" >
+        user_fodder_num = #{userFodderNum,jdbcType=BIGINT},
+      </if>
+      <if test="fodderId != null" >
+        fodder_id = #{fodderId,jdbcType=INTEGER},
+      </if>
+      <if test="fodderName != null" >
+        fodder_name = #{fodderName,jdbcType=VARCHAR},
+      </if>
+      <if test="fodderImg != null" >
+        fodder_img = #{fodderImg,jdbcType=VARCHAR},
+      </if>
+      <if test="addTime != null" >
+        add_time = #{addTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="source != null" >
+        source = #{source,jdbcType=INTEGER},
+      </if>
+    </set>
+    where ufr_id = #{ufrId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dscy.pasture.entity.UserFodderRecord" >
+    update user_fodder_record
+    set show_id = #{showId,jdbcType=INTEGER},
+      user_id = #{userId,jdbcType=INTEGER},
+      username = #{username,jdbcType=VARCHAR},
+      user_fodder_num = #{userFodderNum,jdbcType=BIGINT},
+      fodder_id = #{fodderId,jdbcType=INTEGER},
+      fodder_name = #{fodderName,jdbcType=VARCHAR},
+      fodder_img = #{fodderImg,jdbcType=VARCHAR},
+      add_time = #{addTime,jdbcType=TIMESTAMP},
+      source = #{source,jdbcType=INTEGER}
+    where ufr_id = #{ufrId,jdbcType=INTEGER}
+  </update>
+</mapper>

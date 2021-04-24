@@ -1,0 +1,420 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dscy.pasture.mapper.UserMapper" >
+  <resultMap id="BaseResultMap" type="com.dscy.pasture.entity.User" >
+    <id column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="show_id" property="showId" jdbcType="INTEGER" />
+    <result column="user_phone" property="userPhone" jdbcType="VARCHAR" />
+    <result column="user_open_id" property="userOpenId" jdbcType="VARCHAR" />
+    <result column="user_game_id" property="userGameId" jdbcType="VARCHAR" />
+    <result column="username" property="username" jdbcType="VARCHAR" />
+    <result column="user_wx_source" property="userWxSource" jdbcType="INTEGER" />
+    <result column="user_avatav" property="userAvatav" jdbcType="VARCHAR" />
+    <result column="user_points" property="userPoints" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="user_spread_qrcode" property="userSpreadQrcode" jdbcType="VARCHAR" />
+    <result column="user_anount" property="userAnount" jdbcType="INTEGER" />
+    <result column="user_add_time" property="userAddTime" jdbcType="TIMESTAMP" />
+    <result column="user_update_time" property="userUpdateTime" jdbcType="TIMESTAMP" />
+    <result column="user_sign_day" property="userSignDay" jdbcType="INTEGER" />
+    <result column="user_pets_id" property="userPetsId" jdbcType="INTEGER" />
+    <result column="user_pets_level" property="userPetsLevel" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    user_id, show_id, user_phone, user_open_id, user_game_id, username, user_wx_source, 
+    user_avatav, user_points, status, user_spread_qrcode, user_anount, user_add_time, 
+    user_update_time, user_sign_day, user_pets_id, user_pets_level
+  </sql>
+
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.dscy.pasture.entity.UserExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+
+
+  <select id="selectUserList" resultType="User">
+     SELECT u.*,a.`pasture_name` FROM `user` u
+     INNER JOIN
+     admin_user a ON u.`show_id` = a.`admin_id`
+     WHERE 1=1
+     <if test="username != null and username != ''">
+       AND u.`username` LIKE CONCAT('%',#{username},'%')
+     </if>
+    <if test="userPhone != null and userPhone != ''">
+      AND u.`user_phone` LIKE CONCAT('%',#{userPhone},'%')
+    </if>
+     ORDER BY u.`user_id` ASC
+  </select>
+
+
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from user
+    where user_id = #{userId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from user
+    where user_id = #{userId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.dscy.pasture.entity.UserExample" >
+    delete from user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.dscy.pasture.entity.User" >
+    insert into user (user_id, show_id, user_phone, 
+      user_open_id, user_game_id, username, 
+      user_wx_source, user_avatav, user_points, 
+      status, user_spread_qrcode, user_anount, 
+      user_add_time, user_update_time, user_sign_day, 
+      user_pets_id, user_pets_level)
+    values (#{userId,jdbcType=INTEGER}, #{showId,jdbcType=INTEGER}, #{userPhone,jdbcType=VARCHAR}, 
+      #{userOpenId,jdbcType=VARCHAR}, #{userGameId,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, 
+      #{userWxSource,jdbcType=INTEGER}, #{userAvatav,jdbcType=VARCHAR}, #{userPoints,jdbcType=VARCHAR}, 
+      #{status,jdbcType=INTEGER}, #{userSpreadQrcode,jdbcType=VARCHAR}, #{userAnount,jdbcType=INTEGER}, 
+      #{userAddTime,jdbcType=TIMESTAMP}, #{userUpdateTime,jdbcType=TIMESTAMP}, #{userSignDay,jdbcType=INTEGER}, 
+      #{userPetsId,jdbcType=INTEGER}, #{userPetsLevel,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.dscy.pasture.entity.User" >
+    insert into user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="showId != null" >
+        show_id,
+      </if>
+      <if test="userPhone != null" >
+        user_phone,
+      </if>
+      <if test="userOpenId != null" >
+        user_open_id,
+      </if>
+      <if test="userGameId != null" >
+        user_game_id,
+      </if>
+      <if test="username != null" >
+        username,
+      </if>
+      <if test="userWxSource != null" >
+        user_wx_source,
+      </if>
+      <if test="userAvatav != null" >
+        user_avatav,
+      </if>
+      <if test="userPoints != null" >
+        user_points,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="userSpreadQrcode != null" >
+        user_spread_qrcode,
+      </if>
+      <if test="userAnount != null" >
+        user_anount,
+      </if>
+      <if test="userAddTime != null" >
+        user_add_time,
+      </if>
+      <if test="userUpdateTime != null" >
+        user_update_time,
+      </if>
+      <if test="userSignDay != null" >
+        user_sign_day,
+      </if>
+      <if test="userPetsId != null" >
+        user_pets_id,
+      </if>
+      <if test="userPetsLevel != null" >
+        user_pets_level,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="showId != null" >
+        #{showId,jdbcType=INTEGER},
+      </if>
+      <if test="userPhone != null" >
+        #{userPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="userOpenId != null" >
+        #{userOpenId,jdbcType=VARCHAR},
+      </if>
+      <if test="userGameId != null" >
+        #{userGameId,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null" >
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="userWxSource != null" >
+        #{userWxSource,jdbcType=INTEGER},
+      </if>
+      <if test="userAvatav != null" >
+        #{userAvatav,jdbcType=VARCHAR},
+      </if>
+      <if test="userPoints != null" >
+        #{userPoints,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="userSpreadQrcode != null" >
+        #{userSpreadQrcode,jdbcType=VARCHAR},
+      </if>
+      <if test="userAnount != null" >
+        #{userAnount,jdbcType=INTEGER},
+      </if>
+      <if test="userAddTime != null" >
+        #{userAddTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userUpdateTime != null" >
+        #{userUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userSignDay != null" >
+        #{userSignDay,jdbcType=INTEGER},
+      </if>
+      <if test="userPetsId != null" >
+        #{userPetsId,jdbcType=INTEGER},
+      </if>
+      <if test="userPetsLevel != null" >
+        #{userPetsLevel,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.dscy.pasture.entity.UserExample" resultType="java.lang.Integer" >
+    select count(*) from user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update user
+    <set >
+      <if test="record.userId != null" >
+        user_id = #{record.userId,jdbcType=INTEGER},
+      </if>
+      <if test="record.showId != null" >
+        show_id = #{record.showId,jdbcType=INTEGER},
+      </if>
+      <if test="record.userPhone != null" >
+        user_phone = #{record.userPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userOpenId != null" >
+        user_open_id = #{record.userOpenId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userGameId != null" >
+        user_game_id = #{record.userGameId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.username != null" >
+        username = #{record.username,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userWxSource != null" >
+        user_wx_source = #{record.userWxSource,jdbcType=INTEGER},
+      </if>
+      <if test="record.userAvatav != null" >
+        user_avatav = #{record.userAvatav,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userPoints != null" >
+        user_points = #{record.userPoints,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.userSpreadQrcode != null" >
+        user_spread_qrcode = #{record.userSpreadQrcode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userAnount != null" >
+        user_anount = #{record.userAnount,jdbcType=INTEGER},
+      </if>
+      <if test="record.userAddTime != null" >
+        user_add_time = #{record.userAddTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.userUpdateTime != null" >
+        user_update_time = #{record.userUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.userSignDay != null" >
+        user_sign_day = #{record.userSignDay,jdbcType=INTEGER},
+      </if>
+      <if test="record.userPetsId != null" >
+        user_pets_id = #{record.userPetsId,jdbcType=INTEGER},
+      </if>
+      <if test="record.userPetsLevel != null" >
+        user_pets_level = #{record.userPetsLevel,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update user
+    set user_id = #{record.userId,jdbcType=INTEGER},
+      show_id = #{record.showId,jdbcType=INTEGER},
+      user_phone = #{record.userPhone,jdbcType=VARCHAR},
+      user_open_id = #{record.userOpenId,jdbcType=VARCHAR},
+      user_game_id = #{record.userGameId,jdbcType=VARCHAR},
+      username = #{record.username,jdbcType=VARCHAR},
+      user_wx_source = #{record.userWxSource,jdbcType=INTEGER},
+      user_avatav = #{record.userAvatav,jdbcType=VARCHAR},
+      user_points = #{record.userPoints,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=INTEGER},
+      user_spread_qrcode = #{record.userSpreadQrcode,jdbcType=VARCHAR},
+      user_anount = #{record.userAnount,jdbcType=INTEGER},
+      user_add_time = #{record.userAddTime,jdbcType=TIMESTAMP},
+      user_update_time = #{record.userUpdateTime,jdbcType=TIMESTAMP},
+      user_sign_day = #{record.userSignDay,jdbcType=INTEGER},
+      user_pets_id = #{record.userPetsId,jdbcType=INTEGER},
+      user_pets_level = #{record.userPetsLevel,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dscy.pasture.entity.User" >
+    update user
+    <set >
+      <if test="showId != null" >
+        show_id = #{showId,jdbcType=INTEGER},
+      </if>
+      <if test="userPhone != null" >
+        user_phone = #{userPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="userOpenId != null" >
+        user_open_id = #{userOpenId,jdbcType=VARCHAR},
+      </if>
+      <if test="userGameId != null" >
+        user_game_id = #{userGameId,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null" >
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="userWxSource != null" >
+        user_wx_source = #{userWxSource,jdbcType=INTEGER},
+      </if>
+      <if test="userAvatav != null" >
+        user_avatav = #{userAvatav,jdbcType=VARCHAR},
+      </if>
+      <if test="userPoints != null" >
+        user_points = #{userPoints,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="userSpreadQrcode != null" >
+        user_spread_qrcode = #{userSpreadQrcode,jdbcType=VARCHAR},
+      </if>
+      <if test="userAnount != null" >
+        user_anount = #{userAnount,jdbcType=INTEGER},
+      </if>
+      <if test="userAddTime != null" >
+        user_add_time = #{userAddTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userUpdateTime != null" >
+        user_update_time = #{userUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userSignDay != null" >
+        user_sign_day = #{userSignDay,jdbcType=INTEGER},
+      </if>
+      <if test="userPetsId != null" >
+        user_pets_id = #{userPetsId,jdbcType=INTEGER},
+      </if>
+      <if test="userPetsLevel != null" >
+        user_pets_level = #{userPetsLevel,jdbcType=INTEGER},
+      </if>
+    </set>
+    where user_id = #{userId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dscy.pasture.entity.User" >
+    update user
+    set show_id = #{showId,jdbcType=INTEGER},
+      user_phone = #{userPhone,jdbcType=VARCHAR},
+      user_open_id = #{userOpenId,jdbcType=VARCHAR},
+      user_game_id = #{userGameId,jdbcType=VARCHAR},
+      username = #{username,jdbcType=VARCHAR},
+      user_wx_source = #{userWxSource,jdbcType=INTEGER},
+      user_avatav = #{userAvatav,jdbcType=VARCHAR},
+      user_points = #{userPoints,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      user_spread_qrcode = #{userSpreadQrcode,jdbcType=VARCHAR},
+      user_anount = #{userAnount,jdbcType=INTEGER},
+      user_add_time = #{userAddTime,jdbcType=TIMESTAMP},
+      user_update_time = #{userUpdateTime,jdbcType=TIMESTAMP},
+      user_sign_day = #{userSignDay,jdbcType=INTEGER},
+      user_pets_id = #{userPetsId,jdbcType=INTEGER},
+      user_pets_level = #{userPetsLevel,jdbcType=INTEGER}
+    where user_id = #{userId,jdbcType=INTEGER}
+  </update>
+</mapper>

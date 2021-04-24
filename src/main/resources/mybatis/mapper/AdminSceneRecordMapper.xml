@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dscy.pasture.mapper.AdminSceneRecordMapper" >
+  <resultMap id="BaseResultMap" type="com.dscy.pasture.entity.AdminSceneRecord" >
+    <id column="asr_id" property="asrId" jdbcType="INTEGER" />
+    <result column="show_id" property="showId" jdbcType="INTEGER" />
+    <result column="scene_id" property="sceneId" jdbcType="INTEGER" />
+    <result column="scene_name" property="sceneName" jdbcType="VARCHAR" />
+    <result column="scene_img" property="sceneImg" jdbcType="VARCHAR" />
+    <result column="scene_logo_name" property="sceneLogoName" jdbcType="VARCHAR" />
+    <result column="admin_id" property="adminId" jdbcType="INTEGER" />
+    <result column="admin_name" property="adminName" jdbcType="VARCHAR" />
+    <result column="pasture_name" property="pastureName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    asr_id, show_id, scene_id, scene_name, scene_img, scene_logo_name, admin_id, admin_name, 
+    pasture_name
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.dscy.pasture.entity.AdminSceneRecordExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from admin_scene_record
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from admin_scene_record
+    where asr_id = #{asrId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from admin_scene_record
+    where asr_id = #{asrId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.dscy.pasture.entity.AdminSceneRecordExample" >
+    delete from admin_scene_record
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.dscy.pasture.entity.AdminSceneRecord" >
+    insert into admin_scene_record (asr_id, show_id, scene_id, 
+      scene_name, scene_img, scene_logo_name, 
+      admin_id, admin_name, pasture_name
+      )
+    values (#{asrId,jdbcType=INTEGER}, #{showId,jdbcType=INTEGER}, #{sceneId,jdbcType=INTEGER}, 
+      #{sceneName,jdbcType=VARCHAR}, #{sceneImg,jdbcType=VARCHAR}, #{sceneLogoName,jdbcType=VARCHAR}, 
+      #{adminId,jdbcType=INTEGER}, #{adminName,jdbcType=VARCHAR}, #{pastureName,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.dscy.pasture.entity.AdminSceneRecord" >
+    insert into admin_scene_record
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="asrId != null" >
+        asr_id,
+      </if>
+      <if test="showId != null" >
+        show_id,
+      </if>
+      <if test="sceneId != null" >
+        scene_id,
+      </if>
+      <if test="sceneName != null" >
+        scene_name,
+      </if>
+      <if test="sceneImg != null" >
+        scene_img,
+      </if>
+      <if test="sceneLogoName != null" >
+        scene_logo_name,
+      </if>
+      <if test="adminId != null" >
+        admin_id,
+      </if>
+      <if test="adminName != null" >
+        admin_name,
+      </if>
+      <if test="pastureName != null" >
+        pasture_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="asrId != null" >
+        #{asrId,jdbcType=INTEGER},
+      </if>
+      <if test="showId != null" >
+        #{showId,jdbcType=INTEGER},
+      </if>
+      <if test="sceneId != null" >
+        #{sceneId,jdbcType=INTEGER},
+      </if>
+      <if test="sceneName != null" >
+        #{sceneName,jdbcType=VARCHAR},
+      </if>
+      <if test="sceneImg != null" >
+        #{sceneImg,jdbcType=VARCHAR},
+      </if>
+      <if test="sceneLogoName != null" >
+        #{sceneLogoName,jdbcType=VARCHAR},
+      </if>
+      <if test="adminId != null" >
+        #{adminId,jdbcType=INTEGER},
+      </if>
+      <if test="adminName != null" >
+        #{adminName,jdbcType=VARCHAR},
+      </if>
+      <if test="pastureName != null" >
+        #{pastureName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.dscy.pasture.entity.AdminSceneRecordExample" resultType="java.lang.Integer" >
+    select count(*) from admin_scene_record
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update admin_scene_record
+    <set >
+      <if test="record.asrId != null" >
+        asr_id = #{record.asrId,jdbcType=INTEGER},
+      </if>
+      <if test="record.showId != null" >
+        show_id = #{record.showId,jdbcType=INTEGER},
+      </if>
+      <if test="record.sceneId != null" >
+        scene_id = #{record.sceneId,jdbcType=INTEGER},
+      </if>
+      <if test="record.sceneName != null" >
+        scene_name = #{record.sceneName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sceneImg != null" >
+        scene_img = #{record.sceneImg,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sceneLogoName != null" >
+        scene_logo_name = #{record.sceneLogoName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.adminId != null" >
+        admin_id = #{record.adminId,jdbcType=INTEGER},
+      </if>
+      <if test="record.adminName != null" >
+        admin_name = #{record.adminName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pastureName != null" >
+        pasture_name = #{record.pastureName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update admin_scene_record
+    set asr_id = #{record.asrId,jdbcType=INTEGER},
+      show_id = #{record.showId,jdbcType=INTEGER},
+      scene_id = #{record.sceneId,jdbcType=INTEGER},
+      scene_name = #{record.sceneName,jdbcType=VARCHAR},
+      scene_img = #{record.sceneImg,jdbcType=VARCHAR},
+      scene_logo_name = #{record.sceneLogoName,jdbcType=VARCHAR},
+      admin_id = #{record.adminId,jdbcType=INTEGER},
+      admin_name = #{record.adminName,jdbcType=VARCHAR},
+      pasture_name = #{record.pastureName,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dscy.pasture.entity.AdminSceneRecord" >
+    update admin_scene_record
+    <set >
+      <if test="showId != null" >
+        show_id = #{showId,jdbcType=INTEGER},
+      </if>
+      <if test="sceneId != null" >
+        scene_id = #{sceneId,jdbcType=INTEGER},
+      </if>
+      <if test="sceneName != null" >
+        scene_name = #{sceneName,jdbcType=VARCHAR},
+      </if>
+      <if test="sceneImg != null" >
+        scene_img = #{sceneImg,jdbcType=VARCHAR},
+      </if>
+      <if test="sceneLogoName != null" >
+        scene_logo_name = #{sceneLogoName,jdbcType=VARCHAR},
+      </if>
+      <if test="adminId != null" >
+        admin_id = #{adminId,jdbcType=INTEGER},
+      </if>
+      <if test="adminName != null" >
+        admin_name = #{adminName,jdbcType=VARCHAR},
+      </if>
+      <if test="pastureName != null" >
+        pasture_name = #{pastureName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where asr_id = #{asrId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dscy.pasture.entity.AdminSceneRecord" >
+    update admin_scene_record
+    set show_id = #{showId,jdbcType=INTEGER},
+      scene_id = #{sceneId,jdbcType=INTEGER},
+      scene_name = #{sceneName,jdbcType=VARCHAR},
+      scene_img = #{sceneImg,jdbcType=VARCHAR},
+      scene_logo_name = #{sceneLogoName,jdbcType=VARCHAR},
+      admin_id = #{adminId,jdbcType=INTEGER},
+      admin_name = #{adminName,jdbcType=VARCHAR},
+      pasture_name = #{pastureName,jdbcType=VARCHAR}
+    where asr_id = #{asrId,jdbcType=INTEGER}
+  </update>
+</mapper>

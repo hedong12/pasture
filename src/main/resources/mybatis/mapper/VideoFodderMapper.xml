@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dscy.pasture.mapper.VideoFodderMapper" >
+  <resultMap id="BaseResultMap" type="com.dscy.pasture.entity.VideoFodder" >
+    <id column="vf_id" property="vfId" jdbcType="INTEGER" />
+    <result column="video_fodder_name" property="videoFodderName" jdbcType="VARCHAR" />
+    <result column="show_id" property="showId" jdbcType="INTEGER" />
+    <result column="fodder_id" property="fodderId" jdbcType="INTEGER" />
+    <result column="fodder_name" property="fodderName" jdbcType="VARCHAR" />
+    <result column="fodder_img" property="fodderImg" jdbcType="VARCHAR" />
+    <result column="num" property="num" jdbcType="BIGINT" />
+    <result column="pets_id" property="petsId" jdbcType="INTEGER" />
+    <result column="pets_name" property="petsName" jdbcType="VARCHAR" />
+    <result column="pets_level" property="petsLevel" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    vf_id, video_fodder_name, show_id, fodder_id, fodder_name, fodder_img, num, pets_id, 
+    pets_name, pets_level
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.dscy.pasture.entity.VideoFodderExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from video_fodder
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from video_fodder
+    where vf_id = #{vfId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from video_fodder
+    where vf_id = #{vfId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.dscy.pasture.entity.VideoFodderExample" >
+    delete from video_fodder
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.dscy.pasture.entity.VideoFodder" >
+    insert into video_fodder (vf_id, video_fodder_name, show_id, 
+      fodder_id, fodder_name, fodder_img, 
+      num, pets_id, pets_name, 
+      pets_level)
+    values (#{vfId,jdbcType=INTEGER}, #{videoFodderName,jdbcType=VARCHAR}, #{showId,jdbcType=INTEGER}, 
+      #{fodderId,jdbcType=INTEGER}, #{fodderName,jdbcType=VARCHAR}, #{fodderImg,jdbcType=VARCHAR}, 
+      #{num,jdbcType=BIGINT}, #{petsId,jdbcType=INTEGER}, #{petsName,jdbcType=VARCHAR}, 
+      #{petsLevel,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.dscy.pasture.entity.VideoFodder" >
+    insert into video_fodder
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="vfId != null" >
+        vf_id,
+      </if>
+      <if test="videoFodderName != null" >
+        video_fodder_name,
+      </if>
+      <if test="showId != null" >
+        show_id,
+      </if>
+      <if test="fodderId != null" >
+        fodder_id,
+      </if>
+      <if test="fodderName != null" >
+        fodder_name,
+      </if>
+      <if test="fodderImg != null" >
+        fodder_img,
+      </if>
+      <if test="num != null" >
+        num,
+      </if>
+      <if test="petsId != null" >
+        pets_id,
+      </if>
+      <if test="petsName != null" >
+        pets_name,
+      </if>
+      <if test="petsLevel != null" >
+        pets_level,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="vfId != null" >
+        #{vfId,jdbcType=INTEGER},
+      </if>
+      <if test="videoFodderName != null" >
+        #{videoFodderName,jdbcType=VARCHAR},
+      </if>
+      <if test="showId != null" >
+        #{showId,jdbcType=INTEGER},
+      </if>
+      <if test="fodderId != null" >
+        #{fodderId,jdbcType=INTEGER},
+      </if>
+      <if test="fodderName != null" >
+        #{fodderName,jdbcType=VARCHAR},
+      </if>
+      <if test="fodderImg != null" >
+        #{fodderImg,jdbcType=VARCHAR},
+      </if>
+      <if test="num != null" >
+        #{num,jdbcType=BIGINT},
+      </if>
+      <if test="petsId != null" >
+        #{petsId,jdbcType=INTEGER},
+      </if>
+      <if test="petsName != null" >
+        #{petsName,jdbcType=VARCHAR},
+      </if>
+      <if test="petsLevel != null" >
+        #{petsLevel,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.dscy.pasture.entity.VideoFodderExample" resultType="java.lang.Integer" >
+    select count(*) from video_fodder
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update video_fodder
+    <set >
+      <if test="record.vfId != null" >
+        vf_id = #{record.vfId,jdbcType=INTEGER},
+      </if>
+      <if test="record.videoFodderName != null" >
+        video_fodder_name = #{record.videoFodderName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.showId != null" >
+        show_id = #{record.showId,jdbcType=INTEGER},
+      </if>
+      <if test="record.fodderId != null" >
+        fodder_id = #{record.fodderId,jdbcType=INTEGER},
+      </if>
+      <if test="record.fodderName != null" >
+        fodder_name = #{record.fodderName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fodderImg != null" >
+        fodder_img = #{record.fodderImg,jdbcType=VARCHAR},
+      </if>
+      <if test="record.num != null" >
+        num = #{record.num,jdbcType=BIGINT},
+      </if>
+      <if test="record.petsId != null" >
+        pets_id = #{record.petsId,jdbcType=INTEGER},
+      </if>
+      <if test="record.petsName != null" >
+        pets_name = #{record.petsName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.petsLevel != null" >
+        pets_level = #{record.petsLevel,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update video_fodder
+    set vf_id = #{record.vfId,jdbcType=INTEGER},
+      video_fodder_name = #{record.videoFodderName,jdbcType=VARCHAR},
+      show_id = #{record.showId,jdbcType=INTEGER},
+      fodder_id = #{record.fodderId,jdbcType=INTEGER},
+      fodder_name = #{record.fodderName,jdbcType=VARCHAR},
+      fodder_img = #{record.fodderImg,jdbcType=VARCHAR},
+      num = #{record.num,jdbcType=BIGINT},
+      pets_id = #{record.petsId,jdbcType=INTEGER},
+      pets_name = #{record.petsName,jdbcType=VARCHAR},
+      pets_level = #{record.petsLevel,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dscy.pasture.entity.VideoFodder" >
+    update video_fodder
+    <set >
+      <if test="videoFodderName != null" >
+        video_fodder_name = #{videoFodderName,jdbcType=VARCHAR},
+      </if>
+      <if test="showId != null" >
+        show_id = #{showId,jdbcType=INTEGER},
+      </if>
+      <if test="fodderId != null" >
+        fodder_id = #{fodderId,jdbcType=INTEGER},
+      </if>
+      <if test="fodderName != null" >
+        fodder_name = #{fodderName,jdbcType=VARCHAR},
+      </if>
+      <if test="fodderImg != null" >
+        fodder_img = #{fodderImg,jdbcType=VARCHAR},
+      </if>
+      <if test="num != null" >
+        num = #{num,jdbcType=BIGINT},
+      </if>
+      <if test="petsId != null" >
+        pets_id = #{petsId,jdbcType=INTEGER},
+      </if>
+      <if test="petsName != null" >
+        pets_name = #{petsName,jdbcType=VARCHAR},
+      </if>
+      <if test="petsLevel != null" >
+        pets_level = #{petsLevel,jdbcType=INTEGER},
+      </if>
+    </set>
+    where vf_id = #{vfId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dscy.pasture.entity.VideoFodder" >
+    update video_fodder
+    set video_fodder_name = #{videoFodderName,jdbcType=VARCHAR},
+      show_id = #{showId,jdbcType=INTEGER},
+      fodder_id = #{fodderId,jdbcType=INTEGER},
+      fodder_name = #{fodderName,jdbcType=VARCHAR},
+      fodder_img = #{fodderImg,jdbcType=VARCHAR},
+      num = #{num,jdbcType=BIGINT},
+      pets_id = #{petsId,jdbcType=INTEGER},
+      pets_name = #{petsName,jdbcType=VARCHAR},
+      pets_level = #{petsLevel,jdbcType=INTEGER}
+    where vf_id = #{vfId,jdbcType=INTEGER}
+  </update>
+</mapper>
