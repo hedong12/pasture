@@ -16,7 +16,7 @@ public class MyMvcConfig implements WebMvcConfigurer {
         //增加自定义登录拦截器
         registry.addInterceptor(new AdminLoginIntercetor())
                 .addPathPatterns("/**")  //拦截任意多重路径下的任意请求
-                .excludePathPatterns("/admin", "/","/admin/toregister","/admin/toadmin") //排除拦截
+                .excludePathPatterns("/admin", "/","/admin/toregister","/api/**","/admin/toadmin") //排除拦截
                 .excludePathPatterns("/assets/**", "/css/**","/uploaded/**", "/images/**", "/js/**", "/register/**")//排除对静态资源拦截
                 .excludePathPatterns("/admin/login");
     }

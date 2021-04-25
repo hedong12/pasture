@@ -39,7 +39,7 @@ public class PrizeServiceImpl implements PrizeService {
     public int delPrizeById(Integer getpId) {
         return prizeMapper.deleteByPrimaryKey(getpId);
     }
-<<<<<<< HEAD
+
 
     @Override
     public int doUpdatePrizeById(Prize prize) {
@@ -50,6 +50,4 @@ public class PrizeServiceImpl implements PrizeService {
     public int addPrize(Prize prize) {
         return prizeMapper.insert(prize);
     }
-=======
->>>>>>> 22668223364caae28f5c9fc0cd08bcf25ed1f183
 }

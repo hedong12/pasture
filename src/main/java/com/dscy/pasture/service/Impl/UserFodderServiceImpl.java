@@ -43,7 +43,6 @@ public class UserFodderServiceImpl implements UserFodderService {
     public int delUserFodderById(Integer ufId) {
         return userFodderMapper.deleteByPrimaryKey(ufId);
     }
-<<<<<<< HEAD
 
     @Override
     public int doUpdateUserFodderById(UserFodder userFodder) {
@@ -54,6 +53,5 @@ public class UserFodderServiceImpl implements UserFodderService {
     public int addUserFodder(UserFodder userFodder) {
         return userFodderMapper.insert(userFodder);
     }
-=======
->>>>>>> 22668223364caae28f5c9fc0cd08bcf25ed1f183
+
 }

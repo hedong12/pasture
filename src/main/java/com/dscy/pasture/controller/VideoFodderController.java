@@ -1,15 +1,11 @@
 package com.dscy.pasture.controller;
 
 import com.alibaba.fastjson.JSON;
-<<<<<<< HEAD
 import com.dscy.pasture.entity.Fodder;
 import com.dscy.pasture.entity.Pets;
 import com.dscy.pasture.entity.VideoFodder;
 import com.dscy.pasture.service.FodderService;
 import com.dscy.pasture.service.PetsService;
-=======
-import com.dscy.pasture.entity.VideoFodder;
->>>>>>> 22668223364caae28f5c9fc0cd08bcf25ed1f183
 import com.dscy.pasture.service.VideoFodderService;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,10 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.HashMap;
-<<<<<<< HEAD
 import java.util.List;
-=======
->>>>>>> 22668223364caae28f5c9fc0cd08bcf25ed1f183
 import java.util.Map;
 
 @Controller
@@ -33,15 +26,12 @@ public class VideoFodderController {
     @Autowired
     private VideoFodderService videoFodderService;
 
-<<<<<<< HEAD
+
     @Autowired
     private FodderService fodderService;
 
     @Autowired
     private PetsService petsService;
-
-=======
->>>>>>> 22668223364caae28f5c9fc0cd08bcf25ed1f183
     /**
      * 查询视频饲料列表——模糊
      * @param currentPage
@@ -58,13 +48,11 @@ public class VideoFodderController {
                                      @RequestParam(value = "petsName",required = false,defaultValue = "") String petsName,
                                      Model model){
         PageInfo pageInfo = videoFodderService.getVideoFodderList(currentPage,videoFodderName,fodderName,petsName);
-<<<<<<< HEAD
+
         List<Fodder> fodderList = fodderService.getExpPrizeFodderList();
         List<Pets> petsList = petsService.queryPetsList();
         model.addAttribute("fodderList",fodderList);
         model.addAttribute("petsList",petsList);
-=======
->>>>>>> 22668223364caae28f5c9fc0cd08bcf25ed1f183
         model.addAttribute("pageInfo",pageInfo);
         model.addAttribute("videoFodderName",videoFodderName);
         model.addAttribute("fodderName",fodderName);
@@ -90,8 +78,6 @@ public class VideoFodderController {
         }
         return JSON.toJSONString(map);
     }
-
-<<<<<<< HEAD
 
     @RequestMapping("/toUpdateVideoFodderById")
     public String toUpdateVideoFodderById(@RequestParam("id") Integer id,
@@ -175,6 +161,4 @@ public class VideoFodderController {
     }
 
 
-=======
->>>>>>> 22668223364caae28f5c9fc0cd08bcf25ed1f183
 }

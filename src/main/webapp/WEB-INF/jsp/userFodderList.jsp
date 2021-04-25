@@ -15,11 +15,7 @@
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
     <!-- TITLE OF SITE -->
-<<<<<<< HEAD
     <title>用户饲料管理</title>
-=======
-    <title>用户饲料列表</title>
->>>>>>> 22668223364caae28f5c9fc0cd08bcf25ed1f183
 
     <!-- favicon -->
     <!--<link rel="shortcat icon" href="/favicon.ico" type="image/x-icon">-->
@@ -143,18 +139,15 @@
                                 <h2>用户饲料列表</h2>
                             </div><!--/.box-head-->
 
-<<<<<<< HEAD
                             <input type="button"  class="modalLink btn btn-success" value="添加用户饲料">
-=======
-                            <input type="button"  class="modalLink btn btn-success" value="添加饲料">
->>>>>>> 22668223364caae28f5c9fc0cd08bcf25ed1f183
+
 
                         <%--                            弹窗遮罩--%>
                             <div class="overlay"></div>
 <%--                             添加表单 --%>
                             <div id="modal1" class="modal">
                                 <div>
-<<<<<<< HEAD
+
                                     <h2 style="margin: 15px;text-align: center;color: black">添加用户饲料</h2>
                                 </div>
                                 <form id="form0" enctype="multipart/form-data">
@@ -176,31 +169,6 @@
                                         </c:forEach>
                                     </select>
                                     <span class="spa spa3"></span><br />
-=======
-                                    <h2 style="margin: 15px;text-align: center;color: black">添 加 饲 料</h2>
-                                </div>
-                                <form id="form0" enctype="multipart/form-data">
-                                    <label class="addlabel">牧场id：</label><input class="addinput" type="text" id="showId" placeholder="请输入牧场ID" /><span class="spa spa1"></span><br />
-                                    <label class="addlabel">饲料名称：</label><input class="addinput" type="text"  id="fodderName" placeholder="请输入饲料名称" /><span class="spa spa2"></span><br />
-                                    <label class="addlabel">饲料等级：</label><input class="addinput" type="text"  id="fodderLevel" placeholder="请输入饲料等级" /><span class="spa spa3"></span><br />
-                                    <label class="addlabel">经验值：</label><input class="addinput" type="text" id="fodderExp" placeholder="请输入经验值" /><span class="spa spa4"></span><br />
-                                    <label class="addlabel">状态：</label>
-                                        <select class="addinput" id="fodderStatus">
-                                            <option value="0">
-                                                正常
-                                            </option>
-                                            <option value="1">
-                                                禁用
-                                            </option>
-                                        </select>
-                                     <br />
-                                    <label class="addlabel">饲料图片：</label>
-                                    <input type="file" name="fileName" class="addinputtypefile"  id="filename" accept="image/png, image/jpeg, image/jpg" onchange="checkImage()">
-                                    <span class="spa spa5"></span>
-                                    <br />
-                                    <div id="showImage"></div>
-                                    <div id="onLoadImage" class="pic onLoadImage"></div>
->>>>>>> 22668223364caae28f5c9fc0cd08bcf25ed1f183
                                     <div style="width: 400px;">
                                     <input type="button" class="closeBtn sub btn btn-info" value="取消" />
                                     <input type="button" class="btn sub btn-success" onclick="subForm()" value="提交" />
@@ -242,11 +210,8 @@
                                                      <a onclick="delUserFodderById('${userFodder.ufId}')" href="javascript:;">
                                                          <span class="item-status delivered">删除</span>
                                                      </a>
-<<<<<<< HEAD
                                                      <a id="updatePetsById" href="${pageContext.request.contextPath}/userFodder/toUpdateUserFodderById?id=${userFodder.ufId}"><span class="item-status delivered">修改</span></a>
-=======
-                                                     <a id="updatePetsById" href="${pageContext.request.contextPath}/fodder/toUpdateFodderById?id=${userFodder.ufId}"><span class="item-status delivered">修改</span></a>
->>>>>>> 22668223364caae28f5c9fc0cd08bcf25ed1f183
+
                                                 </td>
                                             </tr>
                                         </c:forEach>
@@ -514,35 +479,10 @@
             }
         }
 
-
-<<<<<<< HEAD
-
         if($(this).is("#userFodderNum")){            // 宠物经验值判断
             var pe = /^\d{1,10}$/;
             if($("#userFodderNum").val()!=""){
                 if(!(pe.test($("#userFodderNum").val()))){
-=======
-        if($(this).is("#fodderLevel")){            // 宠物等级判断
-            var ps = /^\d{1,10}$/;
-            if($("#fodderLevel").val()!=""){
-                if(!(ps.test($("#fodderLevel").val()))){
-                    $(".spa3").text("请输入1-10位的整数");
-                    $(this).css("border","1px solid #BD362F")
-                    return false;
-                }else if(ps){
-                    $(".spa3").text("");
-                    return true;
-                }
-            }else{
-                $(".spa3").text("");
-            }
-        }
-
-        if($(this).is("#fodderExp")){            // 宠物经验值判断
-            var pe = /^\d{1,10}$/;
-            if($("#fodderExp").val()!=""){
-                if(!(pe.test($("#fodderExp").val()))){
->>>>>>> 22668223364caae28f5c9fc0cd08bcf25ed1f183
                     $(".spa4").text("请输入1-10位的整数");
                     $(this).css("border","1px solid #BD362F")
                     return false;
@@ -555,27 +495,16 @@
             }
         }
 
-<<<<<<< HEAD
         if($(this).is("#userId")){
             if($("#userId").val()!=""){
-=======
-        if($(this).is("#fodderName")){
-            if($("#fodderName").val()!=""){
->>>>>>> 22668223364caae28f5c9fc0cd08bcf25ed1f183
                 $(".spa2").text("");
                 return true;
             }
         }
 
-<<<<<<< HEAD
         if($(this).is("#fodderId")){
             if($("#fodderId").val()!=""){
                 $(".spa3").text("");
-=======
-        if($(this).is("#filename")){
-            if($("#filename").val()!=""){
-                $(".spa5").text("");
->>>>>>> 22668223364caae28f5c9fc0cd08bcf25ed1f183
                 return true;
             }
         }
@@ -588,15 +517,7 @@
             $(".spa1").text("只允许输入数字").css("color","#aaa")
             $(this).css("border","1px solid #aaa")
         }
-<<<<<<< HEAD
         if($(this).is("#userFodderNum")){
-=======
-        if($(this).is("#fodderLevel")){
-            $(".spa3").text("只允许输入数字").css("color","#aaa")
-            $(this).css("border","1px solid #aaa")
-        }
-        if($(this).is("#fodderExp")){
->>>>>>> 22668223364caae28f5c9fc0cd08bcf25ed1f183
             $(".spa4").text("只允许输入数字").css("color","#aaa")
             $(this).css("border","1px solid #aaa")
         }
@@ -605,7 +526,6 @@
 
     function subForm() {
         var ph = /^\d{1,10}$/;
-<<<<<<< HEAD
         if (ph.test($("#showId").val()) && ph.test($("#userFodderNum").val()) &&  $("#userId").val() != "" && $("#fodderId").val() != "") {
             var formData=new FormData($("#form0")[0]);
             formData.append('showId',$("#showId").val());
@@ -614,18 +534,6 @@
             formData.append('fodderId',$("#fodderId").val());
             $.ajax({
                 url:"${pageContext.request.contextPath}/userFodder/addUserFodder", //要处理的页面
-=======
-        if (ph.test($("#showId").val()) && ph.test($("#fodderLevel").val()) && ph.test($("#fodderExp").val()) && $("#fodderName").val() != "" && $("#filename").val() != "") {
-            var formData=new FormData($("#form0")[0]);
-            formData.append('showId',$("#showId").val());
-            formData.append('fodderName',$("#fodderName").val());
-            formData.append('fodderLevel',$("#fodderLevel").val());
-            formData.append('fodderExp',$("#fodderExp").val());
-            formData.append('fodderStatus',$("#fodderStatus").val());
-            formData.append('filename',$("#filename").val());
-            $.ajax({
-                url:"${pageContext.request.contextPath}/fodder/addFodder", //要处理的页面
->>>>>>> 22668223364caae28f5c9fc0cd08bcf25ed1f183
                 data: formData,  //要传过去的数据
                 contentType:false,//ajax上传图片需要添加
                 processData:false,//ajax上传图片需要添加
@@ -661,7 +569,6 @@
             if($("#showId").val() == ""){
                 $(".spa1").text('请你填写牧场ID')
             }
-<<<<<<< HEAD
             if($("#userId").val() == ""){
                 $(".spa2").text('请选择用户')
             }
@@ -672,21 +579,6 @@
                 $(".spa4").text('请你填写饲料数量')
 
             }
-=======
-            if($("#fodderName").val() == ""){
-                $(".spa2").text('请你填写饲料名称')
-            }
-            if($("#fodderLevel").val() == ""){
-                $(".spa3").text('请你填写饲料等级')
-            }
-            if($("#fodderExp").val() == ""){
-                $(".spa4").text('请你填写经验值')
-
-            }
-            if($("#filename").val() == ""){
-                $(".spa5").text('请选择图片')
-            }
->>>>>>> 22668223364caae28f5c9fc0cd08bcf25ed1f183
             return false;
         }
 

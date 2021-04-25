@@ -50,7 +50,7 @@
     <style>
 
         .addlabel{
-            width: 84px;
+            width: 106px;
             float: left;
             clear: left;
             height: 36px;
@@ -139,22 +139,29 @@
                                 <h2>签到列表</h2>
                             </div><!--/.box-head-->
 
-                            <input type="button"  class="modalLink btn btn-success" value="添加饲料">
+                            <input type="button"  class="modalLink btn btn-success" value="添加签到">
 
                         <%--                            弹窗遮罩--%>
                             <div class="overlay"></div>
 <%--                             添加表单 --%>
                             <div id="modal1" class="modal">
                                 <div>
-                                    <h2 style="margin: 15px;text-align: center;color: black">添 加 饲 料</h2>
+                                    <h2 style="margin: 15px;text-align: center;color: black">添 加 签 到</h2>
                                 </div>
                                 <form id="form0" enctype="multipart/form-data">
                                     <label class="addlabel">牧场id：</label><input class="addinput" type="text" id="showId" placeholder="请输入牧场ID" /><span class="spa spa1"></span><br />
-                                    <label class="addlabel">饲料名称：</label><input class="addinput" type="text"  id="fodderName" placeholder="请输入饲料名称" /><span class="spa spa2"></span><br />
-                                    <label class="addlabel">饲料等级：</label><input class="addinput" type="text"  id="fodderLevel" placeholder="请输入饲料等级" /><span class="spa spa3"></span><br />
-                                    <label class="addlabel">经验值：</label><input class="addinput" type="text" id="fodderExp" placeholder="请输入经验值" /><span class="spa spa4"></span><br />
+                                    <label class="addlabel">签到名称：</label><input class="addinput" type="text" id="signName" placeholder="请输入签到名称" /><span class="spa spa2"></span><br />
+                                    <label class="addlabel">连续签到天数：</label><input class="addinput" type="text"  id="signDay" placeholder="请输入连续签到天数" /><span class="spa spa3"></span><br />
+                                    <label class="addlabel">经验奖品：</label>
+                                    <select class="addinput" id="expPrizeId">
+                                        <option value="">请选择经验奖品</option>
+                                        <c:forEach items="${expPrizeList}" var="expPrize">
+                                            <option value="${expPrize.eId}">${expPrize.expPrizeName}</option>
+                                        </c:forEach>
+                                    </select>
+                                    <span class="spa spa4"></span><br />
                                     <label class="addlabel">状态：</label>
-                                        <select class="addinput" id="fodderStatus">
+                                        <select class="addinput" id="status">
                                             <option value="0">
                                                 正常
                                             </option>
@@ -163,13 +170,7 @@
                                             </option>
                                         </select>
                                      <br />
-                                    <label class="addlabel">饲料图片：</label>
-                                    <input type="file" name="fileName" class="addinputtypefile"  id="filename" accept="image/png, image/jpeg, image/jpg" onchange="checkImage()">
-                                    <span class="spa spa5"></span>
-                                    <br />
-                                    <div id="showImage"></div>
-                                    <div id="onLoadImage" class="pic onLoadImage"></div>
-                                    <div style="width: 400px;">
+                                    <div>
                                     <input type="button" class="closeBtn sub btn btn-info" value="取消" />
                                     <input type="button" class="btn sub btn-success" onclick="subForm()" value="提交" />
                                     </div>
@@ -215,7 +216,7 @@
                                                      <a onclick="delSignById('${sign.sId}')" href="javascript:;">
                                                          <span class="item-status delivered">删除</span>
                                                      </a>
-                                                     <a id="updatePetsById" href="${pageContext.request.contextPath}/sign/toUpdateFodderById?id=${sign.sId}"><span class="item-status delivered">修改</span></a>
+                                                     <a id="updatePetsById" href="${pageContext.request.contextPath}/sign/toUpdateSignById?id=${sign.sId}"><span class="item-status delivered">修改</span></a>
                                                 </td>
                                             </tr>
                                         </c:forEach>
@@ -484,10 +485,10 @@
         }
 
 
-        if($(this).is("#fodderLevel")){            // 宠物等级判断
+        if($(this).is("#signDay")){            // 宠物等级判断
             var ps = /^\d{1,10}$/;
-            if($("#fodderLevel").val()!=""){
-                if(!(ps.test($("#fodderLevel").val()))){
+            if($("#signDay").val()!=""){
+                if(!(ps.test($("#signDay").val()))){
                     $(".spa3").text("请输入1-10位的整数");
                     $(this).css("border","1px solid #BD362F")
                     return false;
@@ -500,36 +501,19 @@
             }
         }
 
-        if($(this).is("#fodderExp")){            // 宠物经验值判断
-            var pe = /^\d{1,10}$/;
-            if($("#fodderExp").val()!=""){
-                if(!(pe.test($("#fodderExp").val()))){
-                    $(".spa4").text("请输入1-10位的整数");
-                    $(this).css("border","1px solid #BD362F")
-                    return false;
-                }else if(pe){
-                    $(".spa4").text("");
-                    return true;
-                }
-            }else{
+        if($(this).is("#expPrizeId")){
+            if($("#expPrizeId").val()!=""){
                 $(".spa4").text("");
+                return true;
             }
         }
 
-        if($(this).is("#fodderName")){
-            if($("#fodderName").val()!=""){
+        if($(this).is("#signName")){
+            if($("#signName").val()!=""){
                 $(".spa2").text("");
                 return true;
             }
         }
-
-        if($(this).is("#filename")){
-            if($("#filename").val()!=""){
-                $(".spa5").text("");
-                return true;
-            }
-        }
-
 
     })
     /********************** 聚焦提示 ************************/
@@ -538,12 +522,8 @@
             $(".spa1").text("只允许输入数字").css("color","#aaa")
             $(this).css("border","1px solid #aaa")
         }
-        if($(this).is("#fodderLevel")){
+        if($(this).is("#signDay")){
             $(".spa3").text("只允许输入数字").css("color","#aaa")
-            $(this).css("border","1px solid #aaa")
-        }
-        if($(this).is("#fodderExp")){
-            $(".spa4").text("只允许输入数字").css("color","#aaa")
             $(this).css("border","1px solid #aaa")
         }
     })
@@ -551,16 +531,15 @@
 
     function subForm() {
         var ph = /^\d{1,10}$/;
-        if (ph.test($("#showId").val()) && ph.test($("#fodderLevel").val()) && ph.test($("#fodderExp").val()) && $("#fodderName").val() != "" && $("#filename").val() != "") {
-            var formData=new FormData($("#form0")[0]);
+        if (ph.test($("#showId").val()) && ph.test($("#signDay").val()) && $("#signName").val() != "" && $("#expPrizeId").val() != "") {
+            var formData = new FormData($("#form0")[0]);
             formData.append('showId',$("#showId").val());
-            formData.append('fodderName',$("#fodderName").val());
-            formData.append('fodderLevel',$("#fodderLevel").val());
-            formData.append('fodderExp',$("#fodderExp").val());
-            formData.append('fodderStatus',$("#fodderStatus").val());
-            formData.append('filename',$("#filename").val());
+            formData.append('signDay',$("#signDay").val());
+            formData.append('signName',$("#signName").val());
+            formData.append('expPrizeId',$("#expPrizeId").val());
+            formData.append('status',$("#status").val());
             $.ajax({
-                url:"${pageContext.request.contextPath}/fodder/addFodder", //要处理的页面
+                url:"${pageContext.request.contextPath}/sign/addSign", //要处理的页面
                 data: formData,  //要传过去的数据
                 contentType:false,//ajax上传图片需要添加
                 processData:false,//ajax上传图片需要添加
@@ -590,24 +569,19 @@
                 }
 
             });
-
             return true;
         }else {
             if($("#showId").val() == ""){
                 $(".spa1").text('请你填写牧场ID')
             }
-            if($("#fodderName").val() == ""){
-                $(".spa2").text('请你填写饲料名称')
+            if($("#signName").val() == ""){
+                $(".spa2").text('请你填写签到名称')
             }
-            if($("#fodderLevel").val() == ""){
-                $(".spa3").text('请你填写饲料等级')
+            if($("#signDay").val() == ""){
+                $(".spa3").text('请你填写签到天数')
             }
-            if($("#fodderExp").val() == ""){
-                $(".spa4").text('请你填写经验值')
-
-            }
-            if($("#filename").val() == ""){
-                $(".spa5").text('请选择图片')
+            if($("#expPrizeId").val() == ""){
+                $(".spa4").text('请选择经验奖品')
             }
             return false;
         }

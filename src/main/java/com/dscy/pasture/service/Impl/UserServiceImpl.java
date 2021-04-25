@@ -1,10 +1,7 @@
 package com.dscy.pasture.service.Impl;
 
 import com.dscy.pasture.entity.User;
-<<<<<<< HEAD
 import com.dscy.pasture.entity.UserExample;
-=======
->>>>>>> 22668223364caae28f5c9fc0cd08bcf25ed1f183
 import com.dscy.pasture.mapper.UserMapper;
 import com.dscy.pasture.service.UserService;
 import com.github.pagehelper.PageHelper;
@@ -40,7 +37,6 @@ public class UserServiceImpl implements UserService {
         }
         return flag;
     }
-<<<<<<< HEAD
 
     @Override
     public List<User> queryUserList() {
@@ -54,6 +50,4 @@ public class UserServiceImpl implements UserService {
     public User selectUserById(Integer userId) {
         return userMapper.selectByPrimaryKey(userId);
     }
-=======
->>>>>>> 22668223364caae28f5c9fc0cd08bcf25ed1f183
 }

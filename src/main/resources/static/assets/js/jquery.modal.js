@@ -38,9 +38,7 @@
         
         $(options.trigger).bind('click', function(e){
             e.preventDefault();
-            
             if ($('.modalLink').length > 1) {
-
                 getModal = $(this).attr('href');
                 currentModal = $(getModal);    
             }else{
@@ -109,7 +107,7 @@
         }else{
             return false;
         }
-        
+
         if (options.moveOnScroll) {
             $(window).bind('scroll', moveModal);
         }else{

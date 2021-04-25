@@ -47,7 +47,6 @@ public class VideoFodderServiceImpl  implements VideoFodderService {
         return videoFodderMapper.deleteByPrimaryKey(vfId);
     }
 
-<<<<<<< HEAD
     @Override
     public int doUpdateVideoFodderById(VideoFodder videoFodder) {
         return videoFodderMapper.updateByPrimaryKey(videoFodder);
@@ -58,6 +57,4 @@ public class VideoFodderServiceImpl  implements VideoFodderService {
         return videoFodderMapper.insert(videoFodder);
     }
 
-=======
->>>>>>> 22668223364caae28f5c9fc0cd08bcf25ed1f183
 }

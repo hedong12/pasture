@@ -44,4 +44,14 @@ public class SignServiceImpl implements SignService {
         return signMapper.deleteByPrimaryKey(getsId);
     }
 
+    @Override
+    public int doUpdateSignById(Sign sign) {
+        return signMapper.updateByPrimaryKey(sign);
+    }
+
+    @Override
+    public int addSign(Sign sign) {
+        return signMapper.insert(sign);
+    }
+
 }

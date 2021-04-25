@@ -46,7 +46,6 @@ public class ImgCacheServiceImpl implements ImgCacheService {
         ImgCacheExample.Criteria criteria = example.createCriteria();
         return imgCacheMapper.selectByExample(example);
     }
-<<<<<<< HEAD
 
     @Override
     public int doUpdateImgcacheById(ImgCache imgCache) {
@@ -57,6 +56,5 @@ public class ImgCacheServiceImpl implements ImgCacheService {
     public int addImgcache(ImgCache imgCache) {
         return imgCacheMapper.insert(imgCache);
     }
-=======
->>>>>>> 22668223364caae28f5c9fc0cd08bcf25ed1f183
+
 }

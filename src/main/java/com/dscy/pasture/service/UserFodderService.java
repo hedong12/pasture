@@ -10,11 +10,8 @@ public interface UserFodderService {
     UserFodder selectUserFodderById(Integer id);
 
     int delUserFodderById(Integer ufId);
-<<<<<<< HEAD
 
     int doUpdateUserFodderById(UserFodder userFodder);
 
     int addUserFodder(UserFodder userFodder);
-=======
->>>>>>> 22668223364caae28f5c9fc0cd08bcf25ed1f183
 }

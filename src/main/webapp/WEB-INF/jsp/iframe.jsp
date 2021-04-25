@@ -243,16 +243,12 @@
                             <i data-feather="grid"></i> <span>任务记录</span>
                         </a>
                     </li>
-<<<<<<< HEAD
-
 
 <%--                    <li onclick="getIframeList('/shouyiLedger/shouyiLedgerList')">--%>
 <%--                        <a href="#">--%>
 <%--                            <i data-feather="grid"></i> <span>收益总账</span>--%>
 <%--                        </a>--%>
 <%--                    </li>--%>
-=======
->>>>>>> 22668223364caae28f5c9fc0cd08bcf25ed1f183
             </nav>
         </div>
 

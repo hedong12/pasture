@@ -1,17 +1,12 @@
 package com.dscy.pasture.controller;
 
 import com.alibaba.fastjson.JSON;
-<<<<<<< HEAD
 import com.dscy.pasture.entity.Fodder;
 import com.dscy.pasture.entity.User;
 import com.dscy.pasture.entity.UserFodder;
 import com.dscy.pasture.service.FodderService;
 import com.dscy.pasture.service.UserFodderService;
 import com.dscy.pasture.service.UserService;
-=======
-import com.dscy.pasture.entity.UserFodder;
-import com.dscy.pasture.service.UserFodderService;
->>>>>>> 22668223364caae28f5c9fc0cd08bcf25ed1f183
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,10 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.HashMap;
-<<<<<<< HEAD
 import java.util.List;
-=======
->>>>>>> 22668223364caae28f5c9fc0cd08bcf25ed1f183
 import java.util.Map;
 
 @Controller
@@ -34,32 +26,26 @@ public class UserFodderController {
     @Autowired
     private UserFodderService userFodderService;
 
-<<<<<<< HEAD
     @Autowired
     private UserService userService;
 
     @Autowired
     private FodderService fodderService;
 
-=======
->>>>>>> 22668223364caae28f5c9fc0cd08bcf25ed1f183
     @RequestMapping("/userFodderList")
     public String getUserFodderList(@RequestParam(value = "pn",required = false,defaultValue = "1") Integer currentPage,
                                     @RequestParam(value = "username",required = false,defaultValue = "") String username,
                                     @RequestParam(value = "fodderName",required = false,defaultValue = "") String fodderName,
                                     Model model){
         PageInfo pageInfo = userFodderService.getUserFodderList(currentPage,username,fodderName);
-<<<<<<< HEAD
         List<User> userList = userService.queryUserList();
         List<Fodder> fodderList = fodderService.getExpPrizeFodderList();
         model.addAttribute("pageInfo",pageInfo);
         model.addAttribute("username",username);
         model.addAttribute("userList",userList);
         model.addAttribute("fodderList",fodderList);
-=======
         model.addAttribute("pageInfo",pageInfo);
         model.addAttribute("username",username);
->>>>>>> 22668223364caae28f5c9fc0cd08bcf25ed1f183
         model.addAttribute("fodderName",fodderName);
         return "userFodderList";
     }
@@ -84,7 +70,6 @@ public class UserFodderController {
     }
 
 
-<<<<<<< HEAD
     @RequestMapping("/toUpdateUserFodderById")
     public String toUpdateUserFodderById(@RequestParam("id") Integer id,
                                          Model model){
@@ -150,7 +135,4 @@ public class UserFodderController {
 
         return JSON.toJSONString(map);
     }
-=======
-
->>>>>>> 22668223364caae28f5c9fc0cd08bcf25ed1f183
 }

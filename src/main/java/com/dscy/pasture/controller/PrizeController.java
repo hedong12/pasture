@@ -1,16 +1,11 @@
 package com.dscy.pasture.controller;
 
 import com.alibaba.fastjson.JSON;
-<<<<<<< HEAD
 import com.dscy.pasture.entity.Pets;
 import com.dscy.pasture.entity.Prize;
 import com.dscy.pasture.service.PetsService;
 import com.dscy.pasture.service.PrizeService;
 import com.dscy.pasture.util.FileUtils;
-=======
-import com.dscy.pasture.entity.Prize;
-import com.dscy.pasture.service.PrizeService;
->>>>>>> 22668223364caae28f5c9fc0cd08bcf25ed1f183
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,15 +13,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-<<<<<<< HEAD
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.*;
-=======
-
-import java.util.HashMap;
-import java.util.Map;
->>>>>>> 22668223364caae28f5c9fc0cd08bcf25ed1f183
 
 /**
  * 奖品-controller
@@ -38,22 +27,16 @@ public class PrizeController {
     @Autowired
     private PrizeService prizeService;
 
-<<<<<<< HEAD
     @Autowired
     private PetsService petsService;
 
-=======
->>>>>>> 22668223364caae28f5c9fc0cd08bcf25ed1f183
     @RequestMapping("/prizeList")
     public String getPrizeList(@RequestParam(value = "pn",required = false,defaultValue = "1") Integer cuttentPage,
                                @RequestParam(value = "prizeName",required = false,defaultValue = "") String prizeName,
                                Model model){
         PageInfo pageInfo = prizeService.getPrizeList(cuttentPage,prizeName);
-<<<<<<< HEAD
         List<Pets> petsList = petsService.queryPetsList();
         model.addAttribute("petsList",petsList);
-=======
->>>>>>> 22668223364caae28f5c9fc0cd08bcf25ed1f183
         model.addAttribute("prizeName",prizeName);
         model.addAttribute("pageInfo",pageInfo);
         return "prizeList";
@@ -79,7 +62,6 @@ public class PrizeController {
     }
 
 
-<<<<<<< HEAD
 
     @RequestMapping("/toUpdatePrizeById")
     public String toUpdatePrizeById(@RequestParam("id") Integer id,
@@ -183,6 +165,4 @@ public class PrizeController {
         return JSON.toJSONString(map);
     }
 
-=======
->>>>>>> 22668223364caae28f5c9fc0cd08bcf25ed1f183
 }
